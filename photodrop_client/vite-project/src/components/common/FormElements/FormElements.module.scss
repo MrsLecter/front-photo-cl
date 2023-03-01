@@ -1,0 +1,219 @@
+.formLabel,
+.formLabel__phone {
+  font-family: "Futura";
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23.08px;
+  color: #262626;
+
+  span {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20.51px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .formLabel {
+    font-size: 18px;
+    line-height: 23.08px;
+    width: 420px;
+    margin: 0 auto;
+  }
+}
+
+.formLabel__phone {
+  &:hover {
+    cursor: help;
+  }
+}
+
+.formErrorMessage {
+  margin-top: -20px;
+  height: 18px;
+  font-family: "Futura";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17.95px;
+  color: red;
+}
+
+.formInput,
+.formInputInvalid,
+.formInput_small,
+.formInputInvalid_small,
+.formCodeInput {
+  padding: 14px 13px;
+  box-sizing: border-box;
+  margin: 19px 0px;
+  width: 345px;
+  height: 40px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #eeeeee;
+  background: #f4f4f4;
+  font-family: "Futura";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20.51px;
+  color: #6d6d6d;
+}
+
+@media (min-width: 1440px) {
+  .formCodeInput {
+    margin-right: 30px;
+  }
+
+  .formInput {
+    width: 420px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .formInput_small,
+  .formInputInvalid_small {
+    width: 341px;
+    font-size: 18px;
+    line-height: 23.08px;
+  }
+}
+
+.formInputInvalid {
+  border: 1px solid red;
+}
+
+.formCodeInput {
+  width: 45px;
+  padding: 0px;
+  text-align: center;
+}
+
+@media (min-width: 1440px) {
+  .formCodeInput {
+    margin-right: 30px;
+  }
+}
+
+.formMain {
+  margin-top: 14px;
+  width: 345px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.codeConfirmBox,
+.codeConfirmBox_invalid {
+  width: 345px;
+  height: 40px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.codeConfirmBox_invalid {
+  input {
+    border: 1px solid red;
+  }
+}
+
+.formDescription,
+.formDescription_small {
+  box-sizing: border-box;
+  width: 345px;
+  text-align: start;
+  font-family: "Futura";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17.95px;
+  color: #6d6d6d;
+}
+
+.formDescription_small {
+  padding-left: 30px;
+}
+
+.formCheckbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding-left: 30px;
+  font-family: "Futura";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20.51px;
+  color: #262626;
+
+  &__box {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  &__checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #e3e0d8;
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+
+    img {
+      visibility: hidden;
+      width: 13.09px;
+      height: 9.6px;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .formCheckbox {
+    font-size: 18px;
+    line-height: 23.08px;
+
+    img {
+      visibility: hidden;
+      width: 15px;
+      height: 15px;
+    }
+  }
+}
+
+.formCheckbox:hover input ~ .formCheckbox__checkmark {
+  background-color: #eeeeee;
+}
+
+.formCheckbox input:checked ~ .formCheckbox__checkmark {
+  border: 1px solid #3300cc;
+  img {
+    visibility: visible;
+  }
+}
+
+.formCheckbox__checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.formCheckbox input:checked ~ .formCheckbox__checkmark:after {
+  display: block;
+}
+
+.formCheckbox .formCheckbox__checkmark:after {
+  left: 3.5px;
+  top: 6px;
+  width: 13.09px;
+  height: 9.6px;
+  transform: rotate(135deg);
+}
+
