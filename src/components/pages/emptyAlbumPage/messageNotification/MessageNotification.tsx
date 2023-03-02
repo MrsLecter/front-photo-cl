@@ -1,14 +1,13 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import styled from "styled-components";
 
 const MessageNotification: React.FC = () => {
   const screenWidth = window.screen.width;
-  const svgItems = {
+  const svgItems: Variants = {
     visible: {
       y: 10,
       transition: { type: "spring", bounce: 1, duration: 4, repeat: Infinity },
     },
-    transition: { repeat: Infinity },
   };
 
   const pathVariants = {

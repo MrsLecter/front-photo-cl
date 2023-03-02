@@ -1,7 +1,6 @@
-import { compile } from "sass";
 import styled from "styled-components";
 
-const ButtonSubmit: React.FC<ButtonSubmitProps> = (props) => {
+const ButtonSubmit: React.FC<IButtonSubmitProps> = (props) => {
   return (
     <StyledButtonSubmit
       complete={props.completePayment || false}
@@ -15,7 +14,7 @@ const ButtonSubmit: React.FC<ButtonSubmitProps> = (props) => {
   );
 };
 
-interface ButtonSubmitProps {
+interface IButtonSubmitProps {
   label: string;
   top: string;
   payment?: boolean;

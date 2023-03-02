@@ -41,7 +41,7 @@ export const PaymentInput: React.FC<IPaymentInputProps> = ({
         id={label}
         onChange={changeInputHandler}
         value={value}
-        maxlength="40"
+        maxLength={40}
       />
     </StyledPaymentInput>
   );
