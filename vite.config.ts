@@ -22,4 +22,7 @@ export default defineConfig({
       "@const": path.resolve(__dirname, "src/constants.ts"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 100000000,
+  },
 });
