@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
 import { userSlice } from "@/components/store/reducers/userSlice";
 import requestHandler from "@/api/api-api-requests";
+import requestHandlerUser from "@/api/api-user-requests";
 
 const AccountSettings: React.FC = () => {
   const navigation = useNavigation();
@@ -24,7 +25,9 @@ const AccountSettings: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(
+            await requestHandlerUser.makeTokenRefresh({ refreshToken })
+          )
         );
       }
     };

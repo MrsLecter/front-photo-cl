@@ -1,6 +1,17 @@
 import { IPhotoObject } from "@/components/types/commonTypes";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { AxiosHeaders } from "axios";
+
+export interface AxiosResponse {
+  config: Object;
+  data: {
+    message: string;
+    status: number;
+  };
+  headers: AxiosHeaders;
+  request: XMLHttpRequest;
+  status: number;
+  statusText: string;
+}
 
 export interface IAxiosResponse {
   config: Object;
