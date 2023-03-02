@@ -13,7 +13,8 @@ import WrapperContent from "@wrappers/wrapperContent/wrapperContent";
 import { useEffect } from "react";
 import { userSlice } from "@/components/store/reducers/userSlice";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
+import requestHandlerUser from "@/api/api-user-requests";
 
 const EmptyAlbumsPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,9 @@ const EmptyAlbumsPage: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(
+            await requestHandlerUser.makeTokenRefresh({ refreshToken })
+          )
         );
       }
     };

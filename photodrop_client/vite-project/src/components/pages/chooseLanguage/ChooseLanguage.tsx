@@ -1,6 +1,5 @@
 import React from "react";
 import { Element } from "react-scroll";
-import { useNavigate, useParams } from "react-router-dom";
 import all_countries from "../../../assets/data/countryDb.json";
 import { COMMON_COUNTRIES } from "@const";
 import { separateIt } from "../../helpers/functions";
@@ -41,11 +40,7 @@ export class ChooseLanguage extends React.Component {
             return (
               <React.Fragment key={index}>
                 {item.separated && (
-                  <Element
-                    key={item.id + 900}
-                    name={item.name[0]}
-                    className="element"
-                  >
+                  <Element key={item.id + 900} name={item.name[0]}>
                     <SeparatorString
                       key={item.id + 1200}
                       type="letter"

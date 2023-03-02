@@ -10,7 +10,7 @@ import { useNavigation } from "react-router-dom";
 import { useEffect } from "react";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
 import { userSlice } from "@/components/store/reducers/userSlice";
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 
 const AccountSettings: React.FC = () => {
   const navigation = useNavigation();
@@ -19,7 +19,7 @@ const AccountSettings: React.FC = () => {
   const { refreshToken, expiresIn, phoneNumber, userEmail } = useAppSelector(
     (store) => store.userReducer
   );
-  
+
   useEffect(() => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {

@@ -1,4 +1,6 @@
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
+import { IAxiosInfoResponse } from "@/api/api-requests.types";
+import requestHandlerUser from "@/api/api-user-requests";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
 import { userSlice } from "@/components/store/reducers/userSlice";
 import ButtonBack from "@common/buttons/ButtonBack";
@@ -36,7 +38,9 @@ const DeterminateUser: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(
+            await requestHandlerUser.makeTokenRefresh({ refreshToken })
+          )
         );
       }
     };
@@ -60,10 +64,11 @@ const DeterminateUser: React.FC = () => {
       try {
         setIsLoading(true);
         dispatch(setUserName({ name: fullname }));
-        const response = await requestHandler.putUserName({
-          accessToken,
-          userName: fullname,
-        });
+        const response: IAxiosInfoResponse =
+          await requestHandlerUser.putUserName({
+            accessToken,
+            userName: fullname,
+          });
 
         if (response.status === 200) {
           setUserName({ name: fullname });
@@ -124,7 +129,7 @@ const DeterminateUser: React.FC = () => {
             ) : fullname.length === 0 ? (
               <FormErrorMessage text={"Field must not be empty"} />
             ) : (
-              <FormErrorMessage text={"Error: invalid email"} />
+              <FormErrorMessage text={"Error: invalid name"} />
             )}
             {userName ? (
               <ButtonSubmit

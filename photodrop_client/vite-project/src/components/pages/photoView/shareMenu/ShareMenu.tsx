@@ -31,11 +31,11 @@ import closePNG from "@images/share_close.png";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useAppSelector } from "@hooks/reducers.hook";
 
-interface ShareMenuProps {
+interface IShareMenuProps {
   closeMenu: (isActive: boolean) => void;
 }
 
-const ShareMenu: React.FC<ShareMenuProps> = (props) => {
+const ShareMenu: React.FC<IShareMenuProps> = (props) => {
   const { avatarLink } = useAppSelector((store) => store.userReducer);
   const location = useLocation();
   const [params] = useSearchParams();
@@ -118,7 +118,6 @@ const ShareMenu: React.FC<ShareMenuProps> = (props) => {
         >
           <ViberIcon size={32} round />
         </ViberShareButton>
-        {/* </div> */}
       </StyledShareSocial>
     </StyledShareMenu>
   );

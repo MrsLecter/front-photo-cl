@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import messagePNG from "../../../assets/images/message.png";
 
 const EmptyAlbumInfo: React.FC = () => {
   return (

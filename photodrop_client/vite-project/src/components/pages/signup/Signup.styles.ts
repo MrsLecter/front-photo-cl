@@ -5,6 +5,8 @@ export const SignupFormWrapper = styled.div`
     width: 420px;
     margin-left: calc(50vw - 245px);
   }
+
+  
 `;
 
 export const StyledSignup = styled.div`

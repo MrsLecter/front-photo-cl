@@ -7,13 +7,13 @@ import {
 } from "./SettingList.styles";
 import arrowSVG from "../../../../assets/images/arrow_right.svg";
 
-interface ButtonSettingProps {
+interface IButtonSettingProps {
   header: string;
   description: string;
   way: string;
 }
 
-export const ButtonSetting: React.FC<ButtonSettingProps> = (props) => {
+export const ButtonSetting: React.FC<IButtonSettingProps> = (props) => {
   const navigation = useNavigate();
   return (
     <StyledBtn onClick={() => navigation(props.way)}>

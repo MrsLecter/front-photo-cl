@@ -1,0 +1,25 @@
+.countryPanel {
+  width: 30px;
+  height: calc(100vh - 40px);
+  margin-right: 10px;
+  list-style-type: none;
+  position: fixed;
+  top: 20px;
+  right: 0px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+
+  &__link {
+    cursor: pointer;
+    font-size: 20px;
+  }
+  &__link_active,
+  &__link:hover {
+    cursor: pointer;
+    font-size: 30px;
+  }
+}

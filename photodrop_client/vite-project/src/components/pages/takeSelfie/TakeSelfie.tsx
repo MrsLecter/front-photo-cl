@@ -6,11 +6,14 @@ import {
   StyledTakeSelfieImg,
   StyledTakeSelfieChoose,
 } from "./TakeSelfie.styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useNavigation } from "react-router-dom";
 import { AppUrlsEnum } from "@const";
+import LoadingBlock from "@common/loadingBlock/LoadingBlock";
 
 const TakeSelfie: React.FC = () => {
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [counter, setCounter] = useState<number>(0);
   const [photoTaked, togglePhotoTaked] = useState<boolean>(false);
   const webcamRef = useRef<Webcam>(null);
@@ -25,7 +28,7 @@ const TakeSelfie: React.FC = () => {
     if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
       setImgSrc(imageSrc || "");
-      console.log(imageSrc);
+      // console.log(imageSrc);
     }
   }, [webcamRef, setImgSrc]);
 
@@ -36,10 +39,9 @@ const TakeSelfie: React.FC = () => {
     setCounter(counter + 1);
     togglePhotoTaked(true);
     if (counter === 2 && photoTaked && !!imgSrc) {
+      setIsLoading(true);
       localStorage.setItem("avatar", imgSrc);
       navigate("../" + AppUrlsEnum.APPROVE_SELFIE);
-      
-
     }
   };
 
@@ -51,6 +53,8 @@ const TakeSelfie: React.FC = () => {
 
   return (
     <WrapperPage>
+      {isLoading ? <LoadingBlock /> : <></>}
+      {navigation.state === "loading" ? <LoadingBlock /> : <></>}
       <StyledTakeSelfie>
         <StyledTakeSelfieImg>
           {!imgSrc && (

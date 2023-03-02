@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   StyledAvatarBox,
   StyledHeader,
@@ -7,14 +6,11 @@ import {
 } from "./AvatarBox.styles";
 import editPNG from "@images/avatar_edit.png";
 import avatar from "@images/avatar_edit.png";
-import { AppUrlsEnum } from "@const";
 
 const AvatarBox: React.FC<{
   avatarLink: string;
   buttonHandler: () => void;
 }> = ({ avatarLink, buttonHandler }) => {
-  const navigation = useNavigate();
-
   return (
     <StyledAvatarBox>
       <StyledHeader>Your selfie</StyledHeader>

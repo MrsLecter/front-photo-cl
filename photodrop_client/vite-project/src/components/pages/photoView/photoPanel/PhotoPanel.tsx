@@ -4,7 +4,7 @@ import downloadPNG from "@images/photo_download.png";
 import sharePNG from "@images/photo_share.png";
 import styled from "styled-components";
 
-const PhotoPanel: React.FC<PhotoPanelProps> = (props) => {
+const PhotoPanel: React.FC<IPhotoPanelProps> = (props) => {
   return (
     <StyledPhotoPanel>
       <StyledPhotoBtn onClick={() => props.toggleDownloadMenu()}>
@@ -24,7 +24,7 @@ const PhotoPanel: React.FC<PhotoPanelProps> = (props) => {
   );
 };
 
-interface PhotoPanelProps {
+interface IPhotoPanelProps {
   toggleDownloadMenu: () => void;
   toggleShareMenu: () => void;
   photoUrl: string;

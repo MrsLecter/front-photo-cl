@@ -9,10 +9,13 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StyledNotificationContent } from "./NotificationSetting.styles";
 import { FormDescriptionWrapper } from "@common/FormElements/FormElements";
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 import { userSlice } from "@/components/store/reducers/userSlice";
 import { AppUrlsEnum } from "@const";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
+import requestHandlerApi from "@/api/api-api-requests";
+import requestHandlerUser from "@/api/api-user-requests";
+import { IAxiosInfoResponse } from "@/api/api-requests.types";
 
 const NotificationSetting: React.FC = () => {
   const navigate = useNavigate();
@@ -30,7 +33,9 @@ const NotificationSetting: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(
+            await requestHandlerUser.makeTokenRefresh({ refreshToken })
+          )
         );
       }
     };
@@ -54,12 +59,14 @@ const NotificationSetting: React.FC = () => {
         unsubscribe: +isEmailEnable,
       })
     );
-    const response = await requestHandler.putNotification({
-      messageNotif: isMessagesEnable,
-      emailNotif: isEmailEnable,
-      unsubscribeNotif: isUnsubscribeEnable,
-      accessToken,
-    });
+    const response: IAxiosInfoResponse =
+      await requestHandlerUser.putNotification({
+        messageNotif: isMessagesEnable,
+        emailNotif: isEmailEnable,
+        unsubscribeNotif: isUnsubscribeEnable,
+        accessToken,
+      });
+    console.log(">>>resp", response);
     navigate("../" + AppUrlsEnum.USER_PROFILE);
   };
 

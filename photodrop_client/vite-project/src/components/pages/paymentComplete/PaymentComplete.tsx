@@ -19,6 +19,7 @@ const PaymentComplete: React.FC = () => {
   const photoId = params.get("photoid") || "none";
   const albumName = params.get("album") || "none";
   const { avatarLink } = useAppSelector((store) => store.userReducer);
+  
   return (
     <WrapperPage>
       <Logo />

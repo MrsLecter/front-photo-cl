@@ -13,9 +13,9 @@ import {
   StyledPaymentDetails,
 } from "./PaymentElements.styled";
 import {
-  CityType,
-  PaymentCardDetailsProps,
-  PaymentInputProps,
+  ICityType,
+  IPaymentCardDetailsProps,
+  IPaymentInputProps,
 } from "./PaymentElements.types";
 
 import zipCodeJSON from "../../../../assets/data/zipCodes.json";
@@ -27,7 +27,7 @@ import amexPNG from "@images/amex.png";
 import dcPNG from "@images/diners.png";
 import cardPNG from "@images/card.png";
 
-export const PaymentInput: React.FC<PaymentInputProps> = ({
+export const PaymentInput: React.FC<IPaymentInputProps> = ({
   label,
   value,
   isValidPayment,
@@ -51,7 +51,7 @@ export const PaymentSelectZip: React.FC<{
   setZipCodeCallback: (zip: string) => void;
 }> = ({ setZipCodeCallback }) => {
   const [inputValue, setInputValue] = useState<string>("United States");
-  const [offers, setOffers] = useState<CityType[] | []>([]);
+  const [offers, setOffers] = useState<ICityType[] | []>([]);
   const [isActive, setIsActive] = useState(false);
   const [inputTimer, setInputTimer] = useState<NodeJS.Timeout>();
   const [zip, setZip] = useState<string>("");
@@ -69,7 +69,7 @@ export const PaymentSelectZip: React.FC<{
           const city = item.city.toLowerCase();
           return city.startsWith(userCity);
         });
-        setOffers(filteredOffers as CityType[]);
+        setOffers(filteredOffers as ICityType[]);
         setIsActive(true);
       }
     }, 2000);
@@ -101,7 +101,7 @@ export const PaymentSelectZip: React.FC<{
 
       {isActive && (
         <StyledPaymentOffersBox>
-          {offers.map((item: CityType) => (
+          {offers.map((item: ICityType) => (
             <button
               key={item.zipcode}
               type="button"
@@ -117,7 +117,7 @@ export const PaymentSelectZip: React.FC<{
   );
 };
 
-export const PaymentCardDetails: React.FC<PaymentCardDetailsProps> = ({
+export const PaymentCardDetails: React.FC<IPaymentCardDetailsProps> = ({
   label,
   numberValue,
   changeNumberHandler,

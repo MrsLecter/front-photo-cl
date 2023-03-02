@@ -1,4 +1,4 @@
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 import { useAppDispatch, useAppSelector } from "@hooks/reducers.hook";
 import { userSlice } from "../store/reducers/userSlice";
 import { IAlbumInfo, IPhotoObject } from "../types/commonTypes";
@@ -6,6 +6,9 @@ import { CountriesType } from "./functions.types";
 import { Buffer } from "buffer";
 import { useNavigate } from "react-router-dom";
 import { AppUrlsEnum } from "@const";
+import requestHandlerApi from "@/api/api-api-requests";
+import requestHandlerUser from "@/api/api-user-requests";
+import { IAxiosPostSelfieResponse } from "@/api/api-requests.types";
 
 export const getFlagUnicode = (countryCode: string): string => {
   const codePoints = countryCode
@@ -261,7 +264,7 @@ export const getAlbumsCover = async (
   for (let item of photosData) {
     if (!map.has(item.album)) {
       if (item.marked) {
-        const data = await requestHandler.photoRequest({
+        const data = await requestHandlerApi.photoRequest({
           photoEndpoint: item.path,
         });
 
@@ -340,7 +343,7 @@ export const checkTokenRelevance = async ({
   if (+expiresIn - +currentTime <= 0) {
     try {
       const response: { accessToken: string; refreshToken: string } =
-        await requestHandler.makeTokenRefresh({ refreshToken });
+        await requestHandlerUser.makeTokenRefresh({ refreshToken });
 
       dispatch(
         setNewTokens({
@@ -369,11 +372,11 @@ function stringtoFile(dataurl: string, filename: string): File {
   return new File([u8arr], filename, { type: mime });
 }
 
-export const getFormedAvatarData = (base64: string): FormData => {
-  const filePic = stringtoFile(
-    "data:text/plain;base64,aGVsbG8gd29ybGQ=" + base64,
-    "avatar.png"
-  );
+export const getFormedAvatarData = (userName: string): FormData => {
+  const base64 = localStorage.getItem("avatar") || "";
+  const name = userName.toLowerCase().split(" ").join("-");
+  const filePic = stringtoFile(base64, `avatar-${name}.png`);
+  console.log("img file", filePic);
   let formData = new FormData();
   formData.append("selfie", "selfie");
   formData.append("selfie", filePic);
@@ -383,17 +386,19 @@ export const getFormedAvatarData = (base64: string): FormData => {
 export const setNewAvatar = async (avatarFormData: FormData) => {
   const navigation = useNavigate();
   const { setAvatar } = userSlice.actions;
-  const { accessToken, phoneNumber } = useAppSelector(
+  const { accessToken, phoneNumber, userName } = useAppSelector(
     (store) => store.userReducer
   );
   const dispatch = useAppDispatch();
-  const response: any = await requestHandler.postSelfie({
-    phoneNumber,
-    formData: avatarFormData,
-    accessToken,
-  });
-
+  const response: IAxiosPostSelfieResponse =
+    await requestHandlerUser.postSelfie({
+      phoneNumber,
+      formData: avatarFormData,
+      accessToken,
+    });
+  console.log("photo put resp", response);
   if (response.status === 201) {
+    dispatch(setAvatar({ avatar: response.data.selfie }));
     navigation("../" + AppUrlsEnum.USER_PROFILE);
   } else {
     navigation("../" + AppUrlsEnum.INFO + "/photo not sent! Try again!");

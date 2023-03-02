@@ -11,8 +11,8 @@ const LegalLinks: React.FC = () => {
           89203 to opt out.
         </StyledLinksTop>
         <div>
-          By continuing, you indicate that you have read and agree to our
-          <a href={"../" + AppUrlsEnum.TERMS}>Terms of Use</a> &
+          By continuing, you indicate that you have read and agree to our&nbsp;
+          <a href={"../" + AppUrlsEnum.TERMS}>Terms of Use</a>&nbsp;&&nbsp;
           <a href={"../" + AppUrlsEnum.POLICY}>Privacy Policy</a>
         </div>
       </StyledLegalLinks>
@@ -40,12 +40,13 @@ const StyledLegalLinks = styled.div`
   line-height: 17.95px;
   color: ${({ theme }) => theme.text.second};
 
-  a:active {
-    color: ${({ theme }) => theme.text.second};
+  a:hover {
+    color: ${({ theme }) => theme.text.links};
   }
 
-  a:hover {
-    color: ${({ theme }) => theme.text.main};
+  a:active,
+  a:visited {
+    color: ${({ theme }) => theme.text.second};
   }
 
   @media (min-width: 1440px) {

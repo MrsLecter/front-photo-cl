@@ -1,4 +1,4 @@
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 import {
   getAlbumsCover,
   getMarkedPhotos,
@@ -6,7 +6,6 @@ import {
 } from "@/components/helpers/functions";
 import { IPhotoObject } from "@/components/types/commonTypes";
 import AvatarLink from "@common/avatarLink/AvatarLink";
-import ButtonSubmit from "@common/buttons/ButtonSubmit";
 import { Carousel } from "@common/carousel/Carousel";
 import FrameInvite from "@common/frameInvite/FrameInvite";
 import Header from "@common/header/Header";
@@ -18,13 +17,11 @@ import WrapperContent from "@wrappers/wrapperContent/wrapperContent";
 import { useEffect, useState } from "react";
 import { useNavigate, useNavigation } from "react-router-dom";
 import styled from "styled-components";
-import avatarEditPNG from "@images/avatar_edit.png";
 import WrapperPage from "../../wrappers/wrapperPage/WrapperPage";
 import LoadingBlock from "@common/loadingBlock/LoadingBlock";
-import WrapperModal from "@wrappers/wrapperModal/WrapperModal";
-import { PaymentModal } from "@common/paymentModal/PaymentModal";
 import { userSlice } from "@/components/store/reducers/userSlice";
-import { AxiosAlbumsResponse } from "@/api/api-requests.types";
+import { IAxiosAlbumsResponse } from "@/api/api-requests.types";
+import requestHandlerUser from "@/api/api-user-requests";
 
 const StyledBtnSubmit = styled.div`
   width: 100vw;
@@ -70,11 +67,11 @@ const Dashboard: React.FC = () => {
         if (isTokensNeedRefresh(expiresIn || 0)) {
           dispatch(
             setNewTokens(
-              await requestHandler.makeTokenRefresh({ refreshToken })
+              await requestHandlerUser.makeTokenRefresh({ refreshToken })
             )
           );
         }
-        const photosResponse: AxiosAlbumsResponse =
+        const photosResponse: IAxiosAlbumsResponse =
           await requestHandler.pageRequest({
             accessToken,
             pageEndpoint: DASHBOARD_URL,

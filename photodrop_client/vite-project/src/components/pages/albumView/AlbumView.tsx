@@ -18,7 +18,7 @@ import {
   StyledAlbumDescription,
   StyledAlbumButton,
 } from "./AlbumView.styled";
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 import { ButtonSetting } from "../userProfile/settingList/SettingList";
 import ButtonSubmit from "@common/buttons/ButtonSubmit";
 import WrapperPage from "@wrappers/wrapperPage/WrapperPage";
@@ -26,6 +26,9 @@ import WrapperModal from "@wrappers/wrapperModal/WrapperModal";
 import FrameInvite from "@common/frameInvite/FrameInvite";
 import LoadingBlock from "@common/loadingBlock/LoadingBlock";
 import { userSlice } from "@/components/store/reducers/userSlice";
+import requestHandlerUser from "@/api/api-user-requests";
+import { IAxiosAlbumsResponse } from "@/api/api-requests.types";
+import requestHandlerApi from "@/api/api-api-requests";
 
 const AlbumView: React.FC = () => {
   const navigation = useNavigation();
@@ -45,13 +48,15 @@ const AlbumView: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(
+            await requestHandlerUser.makeTokenRefresh({ refreshToken })
+          )
         );
       }
     };
     checkToken();
     const getPhotosData = async () => {
-      const photos = await requestHandler.pageRequest({
+      const photos: IAxiosAlbumsResponse = await requestHandlerApi.pageRequest({
         accessToken,
         pageEndpoint: DASHBOARD_URL + `/${albumName}`,
       });

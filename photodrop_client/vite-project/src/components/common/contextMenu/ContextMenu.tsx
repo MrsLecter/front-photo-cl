@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import libraryPNG from "@images/library.png";
 import photoPNG from "@images/photo.png";
 import filePNG from "@images/file.png";
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 import ButtonClose from "@common/buttons/ButtonClose";
 import {
   StyledContextMenu,
@@ -14,8 +14,9 @@ import {
   StyledItemLarge,
 } from "./ContextMenu.styles";
 import { AppUrlsEnum } from "@const";
-import { AxiosPostSelfieResponse } from "@/api/api-requests.types";
+import { IAxiosPostSelfieResponse } from "@/api/api-requests.types";
 import { userSlice } from "@/components/store/reducers/userSlice";
+import requestHandlerUser from "@/api/api-user-requests";
 
 export const ContextMenu: React.FC = () => {
   const { phoneNumber, accessToken } = useAppSelector(
@@ -49,12 +50,13 @@ export const ContextMenu: React.FC = () => {
     formData.append("selfie", "selfie");
     formData.append("selfie", selfieFile);
 
-    const response: AxiosPostSelfieResponse = await requestHandler.postSelfie({
-      phoneNumber,
-      formData,
-      accessToken,
-    });
-
+    const response: IAxiosPostSelfieResponse =
+      await requestHandlerUser.postSelfie({
+        phoneNumber,
+        formData,
+        accessToken,
+      });
+    console.log("resp", response);
     if (response.status === 201) {
       dispatch(setAvatar({ avatar: response.data.selfie }));
       navigation("../" + AppUrlsEnum.DASHBOARD);

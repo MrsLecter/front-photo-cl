@@ -1,15 +1,15 @@
+import { getFirstCountryLetter } from "@/components/helpers/functions";
+import { CountriesType } from "@/components/helpers/functions.types";
 import React from "react";
 import { Link, scroller } from "react-scroll";
-
 import classes from "./CountryPanel.module.scss";
 import countriesAll from "../../../../assets/data/countryDb.json";
-import { getFirstCountryLetter } from "../../../helpers/functions";
-import { CountriesType } from "../../../helpers/functions.types";
 
 export class CountryPanel extends React.Component {
   constructor(props: any) {
     super(props);
   }
+
   scrollTo() {
     scroller.scrollTo("scroll-to-element", {
       duration: 800,
@@ -17,13 +17,14 @@ export class CountryPanel extends React.Component {
       smooth: "easeInOutQuart",
     });
   }
+
   render() {
     return (
       <ul className={classes.countryPanel}>
         {getFirstCountryLetter(countriesAll as CountriesType[]).map(
           (item, index) => {
             return (
-              <li key={index + 1900}>
+              <li key={index + 4200}>
                 <Link
                   key={index + 2200}
                   activeClass={classes.countryPanel__link_active}

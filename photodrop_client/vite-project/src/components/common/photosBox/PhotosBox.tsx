@@ -1,4 +1,5 @@
-import requestHandler from "@/api/api-requests";
+import requestHandlerApi from "@/api/api-api-requests";
+import requestHandler from "@/api/api-api-requests";
 import { AppUrlsEnum } from "@const";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +24,8 @@ export const PhotosItem: React.FC<PostItemProps> = ({
 
   useEffect(() => {
     const getMarkedPhoto = async () => {
-      const resp = await requestHandler.photoRequest({ photoEndpoint: src });
+      const resp = await requestHandlerApi.photoRequest({ photoEndpoint: src });
+      
       const imgSrc = URL.createObjectURL(resp);
       setPhoto(imgSrc);
     };

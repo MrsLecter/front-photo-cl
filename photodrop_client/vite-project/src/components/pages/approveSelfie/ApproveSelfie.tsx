@@ -16,7 +16,7 @@ import closeSVG from "@images/close.svg";
 import { AppUrlsEnum } from "@const";
 import { Navigate, useNavigate } from "react-router-dom";
 import ButtonClose from "@common/buttons/ButtonClose";
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 import {
   getFormedAvatarData,
   setNewAvatar,
@@ -53,8 +53,8 @@ class ApproveSelfie extends Component<any, ApproveSelfieProps> {
       const url = editor.getImageScaledToCanvas().toDataURL();
       this.setState({ userProfilePic: url });
       localStorage.setItem("avatar", url);
+      this.setState({ redirect: true });
     }
-    // window.location.href = "../info?message=Avatar installed"; //reload page
   };
 
   onScaleChange = (n: string) => {
@@ -63,8 +63,15 @@ class ApproveSelfie extends Component<any, ApproveSelfieProps> {
   };
 
   render() {
+    let { redirect } = this.state;
     return (
       <WrapperPage>
+        {redirect && (
+          <Navigate
+            to={"../" + AppUrlsEnum.INFO + "/Selfie uploaded successfully"}
+            replace={true}
+          />
+        )}
         <StyledApproveSelfie>
           <StyledSelfieHeader>Take selfie</StyledSelfieHeader>
           <ButtonClose color="white" />
@@ -101,18 +108,6 @@ class ApproveSelfie extends Component<any, ApproveSelfieProps> {
     );
   }
 }
-
-const SaveBtn = ({ url }: { url: string }) => {
-  const saveBtnHandler = async () => {
-    const formData = getFormedAvatarData(url);
-    await setNewAvatar(formData);
-  };
-  return (
-    <StyledSelfieBtn itFilled={true} type="button" onClick={saveBtnHandler}>
-      Save
-    </StyledSelfieBtn>
-  );
-};
 
 const RetakeBtn = () => {
   const navigate = useNavigate();

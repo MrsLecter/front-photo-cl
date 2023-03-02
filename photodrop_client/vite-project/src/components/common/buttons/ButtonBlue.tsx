@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ButtonBlue: React.FC<ButtonBlueProps> = ({
+const ButtonBlue: React.FC<IButtonBlueProps> = ({
   width,
   largeWidth,
   way,
@@ -22,7 +22,7 @@ const ButtonBlue: React.FC<ButtonBlueProps> = ({
   );
 };
 
-interface ButtonBlueProps {
+interface IButtonBlueProps {
   width: string;
   largeWidth: string;
   way?: string;

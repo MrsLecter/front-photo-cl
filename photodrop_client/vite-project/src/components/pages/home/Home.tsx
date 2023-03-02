@@ -10,8 +10,7 @@ import {
   HomePageBtnList,
   HomePageGreeting,
 } from "./Home.styles";
-import { useAppDispatch, useAppSelector } from "@hooks/reducers.hook";
-import { userSlice } from "@/components/store/reducers/userSlice";
+import { useAppSelector } from "@hooks/reducers.hook";
 
 const Home: React.FC = () => {
   const { isLoggedIn } = useAppSelector((store) => store.userReducer);

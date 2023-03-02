@@ -2,7 +2,7 @@ import { IPhotoObject } from "@/components/types/commonTypes";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { AxiosHeaders } from "axios";
 
-export interface AxiosResponse {
+export interface IAxiosResponse {
   config: Object;
   data: {
     message: string;
@@ -14,14 +14,14 @@ export interface AxiosResponse {
   statusText: string;
 }
 
-export interface AxiosInfoResponse extends AxiosResponse {
+export interface IAxiosInfoResponse extends IAxiosResponse {
   data: {
     message: string;
     status: number;
   };
 }
 
-export interface AxiosLoginResponse extends AxiosResponse {
+export interface IAxiosLoginResponse extends IAxiosResponse {
   data: {
     accessToken: string;
     avatarLink: string;
@@ -39,15 +39,20 @@ export interface AxiosLoginResponse extends AxiosResponse {
   };
 }
 
-export interface AxiosAlbumsResponse extends AxiosResponse {
+export interface IAxiosAlbumsResponse extends IAxiosResponse {
   message: IPhotoObject[];
   status: number;
 }
 
-export interface AxiosPostSelfieResponse extends AxiosResponse {
+export interface IAxiosPostSelfieResponse extends IAxiosResponse {
   data: {
     message: string;
     selfie: string;
     status: number;
   };
+}
+
+export interface IAxiosPriceResponse extends IAxiosResponse {
+  message: string;
+  status: number;
 }

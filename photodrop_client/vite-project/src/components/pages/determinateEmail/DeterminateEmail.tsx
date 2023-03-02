@@ -15,8 +15,10 @@ import {
   FormMain,
 } from "@common/FormElements/FormElements";
 import ButtonSubmit from "@common/buttons/ButtonSubmit";
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
+import requestHandlerUser from "@/api/api-user-requests";
+import { IAxiosInfoResponse } from "@/api/api-requests.types";
 
 const StyledContent = styled.div`
   margin-top: 167px;
@@ -35,7 +37,9 @@ const DeterminateEmail: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(
+            await requestHandlerUser.makeTokenRefresh({ refreshToken })
+          )
         );
       }
     };
@@ -58,11 +62,12 @@ const DeterminateEmail: React.FC = () => {
       try {
         setIsLoading(true);
 
-        const response = await requestHandler.putUserEmail({
-          accessToken,
-          userEmail: email,
-        });
-        console.log("!!!write type" + response);
+        const response: IAxiosInfoResponse =
+          await requestHandlerUser.putUserEmail({
+            accessToken,
+            userEmail: email,
+          });
+
         if (response.status === 200) {
           dispatch(setUserEmail({ email }));
           if (userEmail) {

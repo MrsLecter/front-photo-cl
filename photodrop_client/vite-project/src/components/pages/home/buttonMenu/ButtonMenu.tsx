@@ -39,7 +39,7 @@ const BtnMenu = styled.button`
   }
 
   span:after {
-    content: url("./src/assets/images/left_arrow.png");
+    content: url("./src/assets/images/left_arrow.svg");
     position: absolute;
     display: block;
     opacity: 0;

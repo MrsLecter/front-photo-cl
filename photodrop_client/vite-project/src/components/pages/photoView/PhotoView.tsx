@@ -6,15 +6,13 @@ import DownloadMenu from "./downloadMenu/DownloadMenu";
 import PhotoPanel from "./photoPanel/PhotoPanel";
 import ShareMenu from "./shareMenu/ShareMenu";
 import { StyledPhotoView, StyledPhoto } from "./PhotoView.styled";
-import photo from "@images/example_album_01_ph01.png";
-import requestHandler from "@/api/api-requests";
 import ButtonSubmit from "@common/buttons/ButtonSubmit";
-import { Loading } from "@common/loadingBlock/LoadingBlock.styles";
 import LoadingBlock from "@common/loadingBlock/LoadingBlock";
 import WrapperModal from "@wrappers/wrapperModal/WrapperModal";
 import { useAppDispatch, useAppSelector } from "@hooks/reducers.hook";
 import { userSlice } from "@/components/store/reducers/userSlice";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
+import requestHandlerUser from "@/api/api-user-requests";
 
 const PhotoView: React.FC = () => {
   const [params] = useSearchParams();
@@ -40,7 +38,7 @@ const PhotoView: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(await requestHandlerUser.makeTokenRefresh({ refreshToken }))
         );
       }
     };

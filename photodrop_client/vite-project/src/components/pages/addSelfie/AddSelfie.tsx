@@ -1,4 +1,5 @@
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
+import requestHandlerUser from "@/api/api-user-requests";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
 import { userSlice } from "@/components/store/reducers/userSlice";
 import ButtonBack from "@common/buttons/ButtonBack";
@@ -31,7 +32,9 @@ const AddSelfie: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(
+            await requestHandlerUser.makeTokenRefresh({ refreshToken })
+          )
         );
       }
     };

@@ -8,13 +8,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { AppUrlsEnum } from "@const";
 import ButtonBack from "@common/buttons/ButtonBack";
+import {
+  getFormedAvatarData,
+  setNewAvatar,
+} from "@/components/helpers/functions";
+import { useEffect } from "react";
+import { useAppSelector } from "@hooks/reducers.hook";
 
 const Info: React.FC = () => {
   const navigate = useNavigate();
+  const { userName } = useAppSelector((store) => store.userReducer);
   const message = useParams().message || "message not found";
+  console.log("message", message);
+
+  //trick
+  if (message === "Selfie uploaded successfully") {
+    let fData = getFormedAvatarData(userName || "none");
+    setNewAvatar(fData);
+  }
   const goBackHandler = () => {
     navigate(-1);
   };
+
   return (
     <WrapperPage>
       <Logo />

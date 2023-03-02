@@ -1,4 +1,4 @@
-export interface CityType {
+export interface ICityType {
   zipcode: string;
   state_abbr: string;
   latitude: string;
@@ -7,7 +7,7 @@ export interface CityType {
   state: string;
 }
 
-export interface PaymentCardDetailsProps {
+export interface IPaymentCardDetailsProps {
   label: string;
   numberValue: string;
   changeNumberHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,7 +20,7 @@ export interface PaymentCardDetailsProps {
   isValidCvc: boolean;
 }
 
-export interface PaymentInputProps {
+export interface IPaymentInputProps {
   label: string;
   value: string;
   isValidPayment: boolean;

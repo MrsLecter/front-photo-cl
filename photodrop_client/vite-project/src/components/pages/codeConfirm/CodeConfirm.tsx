@@ -13,10 +13,14 @@ import {
   FormMain,
 } from "@common/FormElements/FormElements";
 import ButtonSubmit from "@common/buttons/ButtonSubmit";
-import requestHandler from "@/api/api-requests";
-import { AxiosLoginResponse, AxiosResponse } from "@/api/api-requests.types";
+import requestHandler from "@/api/api-api-requests";
+import {
+  IAxiosLoginResponse,
+  IAxiosPriceResponse,
+} from "@/api/api-requests.types";
 import styled from "styled-components";
 import { AppUrlsEnum } from "@const";
+import requestHandlerUser from "@/api/api-user-requests";
 
 const CodeConfirm: React.FC = () => {
   const { phoneNumber, avatarLink } = useAppSelector(
@@ -38,40 +42,42 @@ const CodeConfirm: React.FC = () => {
     }
     if (isValidConfirmCode && confirmCode.length === 6) {
       try {
-        const confirmCodeRequest: AxiosLoginResponse =
-          await requestHandler.confirm({
+        const confirmCodeResponse: IAxiosLoginResponse =
+          await requestHandlerUser.confirm({
             phone: "" + phoneNumber?.trim(),
             code: confirmCode,
           });
+        console.log("confirm code resp", confirmCodeResponse);
 
-        const photoPriceRequest = await requestHandler.getPhotoPrice();
+        const photoPriceResponse: IAxiosPriceResponse =
+          await requestHandler.getPhotoPrice();
 
-        if (confirmCodeRequest.status === 200) {
+        if (confirmCodeResponse.status === 200) {
           dispatch(
             enroll({
-              accessToken: confirmCodeRequest.data.accessToken,
-              refreshToken: confirmCodeRequest.data.refreshToken,
-              avatarLink: confirmCodeRequest.data.avatarLink || "",
-              userName: confirmCodeRequest.data.userName,
-              phoneNumber: confirmCodeRequest.data.phoneNumber,
-              userEmail: confirmCodeRequest.data.userEmail,
+              accessToken: confirmCodeResponse.data.accessToken,
+              refreshToken: confirmCodeResponse.data.refreshToken,
+              avatarLink: confirmCodeResponse.data.avatarLink || "",
+              userName: confirmCodeResponse.data.userName,
+              phoneNumber: confirmCodeResponse.data.phoneNumber,
+              userEmail: confirmCodeResponse.data.userEmail,
               notificationSettings: {
                 textMessages:
-                  confirmCodeRequest.data.notificationSettings.textMessages,
-                email: confirmCodeRequest.data.notificationSettings.email,
+                  confirmCodeResponse.data.notificationSettings.textMessages,
+                email: confirmCodeResponse.data.notificationSettings.email,
                 unsubscribe:
-                  confirmCodeRequest.data.notificationSettings.unsubscribe,
+                  confirmCodeResponse.data.notificationSettings.unsubscribe,
               },
-              photoPrice: photoPriceRequest.message,
+              photoPrice: +photoPriceResponse.message,
             })
           );
 
-          if (!confirmCodeRequest.data.avatarLink) {
+          if (!confirmCodeResponse.data.avatarLink) {
             navigate("../" + AppUrlsEnum.ADD_SELFIE);
           } else {
             navigate("../" + AppUrlsEnum.DASHBOARD);
           }
-        } else if (confirmCodeRequest.status === 406) {
+        } else if (confirmCodeResponse.status === 406) {
           alert(
             "Your code is expired! Write /resetCode https://t.me/framology_bot -> @framology_bot</a>"
           );

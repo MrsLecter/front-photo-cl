@@ -6,13 +6,12 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import {
   PaymentInput,
   PaymentCardDetails,
   PaymentSelectZip,
 } from "./paymentElements/PaymentElements";
-import { EMAIL_REGEXP, FULLNAME_REGEXP } from "@const";
+import { AppUrlsEnum, EMAIL_REGEXP, FULLNAME_REGEXP } from "@const";
 import { useInput } from "@hooks/use-input";
 import emailPNG from "@images/address-card.png";
 import {
@@ -26,10 +25,11 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import requestHandler from "@/api/api-requests";
 import { useAppSelector } from "@hooks/reducers.hook";
 import Header from "@common/header/Header";
 import ButtonClose from "@common/buttons/ButtonClose";
+import requestHandlerApi from "@/api/api-api-requests";
+import { IAxiosInfoResponse } from "@/api/api-requests.types";
 
 const Payment = () => {
   const [zipCode, setZipCode] = useState<string>("");
@@ -109,32 +109,38 @@ const Payment = () => {
       cardExpireIsValid
     ) {
       if (params.get("type") === "album") {
-        const response = await requestHandler.makePaymentForAlbum({
-          accessToken,
-          albumName: albumName || "notAssigned",
-          card: cardNumber || "",
-          carddate: cardExpire,
-          cvs: cardCvc,
-          price: params.get("price") || "",
-        });
+        const response: IAxiosInfoResponse =
+          await requestHandlerApi.makePaymentForAlbum({
+            accessToken,
+            albumName: albumName || "notAssigned",
+            card: cardNumber || "",
+            carddate: cardExpire,
+            cvs: cardCvc,
+            price: params.get("price") || "",
+          });
 
         if (response.status === 200) {
-          navigate(`../payment_complete?album=${albumName}`);
+          navigate(
+            "../" + AppUrlsEnum.PAYMENT_COMPLETE + `?album=${albumName}`
+          );
         } else {
           console.error("Err", response);
         }
       } else if (params.get("type") === "photo") {
-        const response = await requestHandler.makePaymentForPhoto({
-          accessToken,
-          photoid: photoID,
-          card: cardNumber || "",
-          carddate: cardExpire,
-          cvs: cardCvc,
-          price: params.get("price") || "",
-        });
+        const response: IAxiosInfoResponse =
+          await requestHandlerApi.makePaymentForPhoto({
+            accessToken,
+            photoid: photoID,
+            card: cardNumber || "",
+            carddate: cardExpire,
+            cvs: cardCvc,
+            price: params.get("price") || "",
+          });
 
         if (response.status === 200) {
-          navigate(`../payment_complete?photoid=${photoID}`);
+          navigate(
+            "../" + AppUrlsEnum.PAYMENT_COMPLETE + `?photoid=${photoID}`
+          );
         } else {
           console.error("Err", response);
         }

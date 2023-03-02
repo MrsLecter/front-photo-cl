@@ -18,9 +18,10 @@ import LanguageBtn from "@common/buttons/LanguageBtn";
 import ButtonSubmit from "@common/buttons/ButtonSubmit";
 import { useAppDispatch, useAppSelector } from "@hooks/reducers.hook";
 import { userSlice } from "@/components/store/reducers/userSlice";
-import requestHandler from "@/api/api-requests";
+import requestHandler from "@/api/api-api-requests";
 import { useEffect } from "react";
 import { isTokensNeedRefresh } from "@/components/helpers/functions";
+import requestHandlerUser from "@/api/api-user-requests";
 
 const ChangePhone: React.FC = () => {
   const navigate = useNavigate();
@@ -38,7 +39,9 @@ const ChangePhone: React.FC = () => {
     const checkToken = async () => {
       if (isTokensNeedRefresh(expiresIn || 0)) {
         dispatch(
-          setNewTokens(await requestHandler.makeTokenRefresh({ refreshToken }))
+          setNewTokens(
+            await requestHandlerUser.makeTokenRefresh({ refreshToken })
+          )
         );
       }
     };
@@ -67,10 +70,11 @@ const ChangePhone: React.FC = () => {
       return;
     }
     try {
-      const response = await requestHandler.putUserPhone({
+      const response = await requestHandlerUser.putUserPhone({
         phone,
         accessToken,
       });
+      console.log(">>>response", response);
       if (response.status === 200) {
         navigate("../" + AppUrlsEnum.USER_PROFILE);
       }

@@ -14,15 +14,15 @@ import cities from "../../../assets/data/countryDb.json";
 import LanguageBtn from "@common/buttons/LanguageBtn";
 import ButtonSubmit from "@common/buttons/ButtonSubmit";
 import LegalLinks from "./legalLinks/LegalLinks";
-import { useSignupMutation } from "@/components/redux/usersApi";
 import {
   FormErrorMessage,
   FormInputSmall,
   FormLabel,
   FormMain,
 } from "@common/FormElements/FormElements";
-import requestHandler from "@/api/api-requests";
-import { AxiosInfoResponse } from "@/api/api-requests.types";
+import requestHandler from "@/api/api-api-requests";
+import { IAxiosInfoResponse } from "@/api/api-requests.types";
+import requestHandlerUser from "@/api/api-user-requests";
 
 const Signup: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -66,8 +66,8 @@ const Signup: React.FC = () => {
       dispatch(setPhone({ phone }));
 
       try {
-        const responseRegistration: AxiosInfoResponse =
-          await requestHandler.registration({
+        const responseRegistration: IAxiosInfoResponse =
+          await requestHandlerUser.registration({
             phone,
           });
 
