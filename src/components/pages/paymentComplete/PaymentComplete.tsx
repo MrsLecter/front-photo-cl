@@ -1,7 +1,7 @@
 import AvatarLink from "@common/avatarLink/AvatarLink";
 import Logo from "@common/logo/Logo";
 import WrapperPage from "@wrappers/wrapperPage/WrapperPage";
-import exampleAvatar from "@images/example_avatar.png";
+import exampleAvatar from "@images/avatar_edit.png";
 import moneyGIF from "@images/money.gif";
 import Header from "@common/header/Header";
 import {
@@ -19,7 +19,7 @@ const PaymentComplete: React.FC = () => {
   const photoId = params.get("photoid") || "none";
   const albumName = params.get("album") || "none";
   const { avatarLink } = useAppSelector((store) => store.userReducer);
-  
+
   return (
     <WrapperPage>
       <Logo />
