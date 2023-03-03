@@ -282,7 +282,7 @@ export enum AppUrlsEnum {
 
 export const TWENTY_FOUR_HOURS_IN_MS = 86400000;
 
-export const BASIC_ROOT = "https://70ec-5-255-182-125.eu.ngrok.io";
+export const BASIC_ROOT = "https://be4c-5-255-182-125.eu.ngrok.io";
 
 export const CONFIRM_CODE_ENDPOINT = `${BASIC_ROOT}/telebot-verify`;
 export const REFRESH_URL = `${BASIC_ROOT}/tokens-refresh`;
